@@ -66,7 +66,15 @@ class AlienShip {
 
 // initialize uss and alien objects
     const uss1 = new UssShip(shipN);
-    const alien1 = new AlienShip("ALIEN-SHIP");
+// alien object    
+    const alien1 = new AlienShip("Alistar");
+    const alien2 = new AlienShip("Cosmos");
+    const alien3 = new AlienShip("Elazo");
+    const alien4 = new AlienShip("Kylo");
+    const alien5 = new AlienShip("Novak");
+
+// alien data set
+const alien = [alien1,alien2,alien3,alien4,alien5];
 
 //---------- Testing Uss ship properties ------------------------------ 
     console.log(`\n---------------------${uss1.name} characteristics-------`)
@@ -75,40 +83,54 @@ class AlienShip {
     console.log(`HULL is : ${uss1.hull}`);
     console.log("\n");
 
-//------------------------- Testing alien properties -------------
-console.log(`---------------------${alien1.name} characteristics-------`)
-    // console.log(`Alien name : ${alien1.name}`);
-    console.log(`FIREPOWER is : ${alien1.assignFirePower()}`);
-    console.log(`HULL is : ${alien1.hull}`);
-    console.log(`ACCURACY is : ${alien1.alienAttackedAccuracy()}`);
+// //------------------------- Testing alien properties -------------
+//     console.log(`---------------------${alien[0].name} characteristics-------`)
+//     // console.log(`Alien name : ${alien1.name}`);
+//     console.log(`FIREPOWER is : ${alien[0].assignFirePower()}`);
+//     console.log(`HULL is : ${alien[0].hull}`);
+//     console.log(`ACCURACY is : ${alien[0].alienAttackedAccuracy()}`);
 
 // functions
 // Main program
     
 // check alien hull damage
 // define the the retreat variable
-console.log('\n---------------------Demo---------------------------');
+
 
 let retreat = true;
+let count = 0;
+
     while(retreat) {
+//------------------------- Testing alien properties -------------
+    console.log(`---------------------${alien[count].name} characteristics-------`)
+    // console.log(`Alien name : ${alien1.name}`);
+    console.log(`FIREPOWER is : ${alien[count].assignFirePower()}`);
+    console.log(`HULL is : ${alien[count].hull}`);
+    console.log(`ACCURACY is : ${alien[count].alienAttackedAccuracy()}`);
+    console.log('\n---------------------Demo---------------------------\n');
         
         do{
-            //display who is attacking
+            //display uss ship attacking
             console.log(`\n${uss1.name} is attacking....`);
     
             if(uss1.ussShipAttackAccuracy() === '0.7') {
-                alien1.hull -= 5;
+                alien[count].hull -= 5;
             }else{
-                alien1.hull -= 1;
+                alien[count].hull -= 1;
             }
     
-            console.log(`\n${alien1.name} HULL after the attack is : ${alien1.hull}\n`);
+            console.log(`\n${alien[count].name} HULL after the attack is : ${alien[count].hull}\n`);
+
+            // display the alien attack
+            
     
         }while(alien1.hull > 0);
 
             const input = prompt("Do you want to RETREAT? Enter yes/no : ");
             if(input === "yes"){
                 retreat = false;
+            }else{
+                count++;
             }
      };
 
