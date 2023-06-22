@@ -1,3 +1,6 @@
+//This program simulate a space battle between and Uss ship and space alien
+//
+
 //Enable prompt()
 
 const prompt = require('prompt-sync')();
@@ -9,7 +12,7 @@ class UssShip {
     // attributs declaration
     name = '';
     hull = 20;
-    accuracy = 0.7;
+    accuracy = "0.7";
 
 
     constructor(name) {
@@ -19,7 +22,7 @@ class UssShip {
 
     ussShipAttackAccuracy() {
         // determine the accuracy of the attack
-        const accuracyStrenght = Math.random();
+        const accuracyStrenght = Math.random()*0.8;
         return accuracyStrenght.toFixed(1);
     }
 
@@ -35,6 +38,8 @@ class AlienShip {
     // Attributs declaration
     name = '';
     hull;
+    firePower;
+    accuracy;
     hullMax = 6;
     hullMin = 3;
     firePowerMax = 4;
@@ -44,16 +49,21 @@ class AlienShip {
 
     constructor(name) {
         this.name = name;
-        this.hull = Math.floor((Math.random()*this.hullMax) + this.hullMin);
+        // randomly set the hull of the alien ship
+        this.hull = Math.floor(Math.random()*(this.hullMax - this.hullMin)) + this.hullMin;
+        // randomly set the firepower of the alien ship
+        this.firePower = Math.floor(Math.random()*(this.firePowerMax - this.firePowerMin) )+ this.firePowerMin;
+        // randomly set the accuracy of the alien ship
+        this.accuracy = Math.floor(Math.random()*(this.accuracyMax - this.accuracyMin)) + this.accuracyMin;
     }
 
     alienAttackedAccuracy() {
-        const alienOffense = Math.random()*this.accuracyMax;
+        const alienOffense = Math.floor(Math.random()*(this.accuracyMax - this.accuracyMin)) + this.accuracyMin;
         return alienOffense.toFixed(1);
     }
 
     assignFirePower(){
-        const firePower = Math.floor((Math.random()*this.firePowerMax) + this.firePowerMin)
+        const firePower = Math.floor(Math.random()*this.firePowerMax) + this.firePowerMin;
         return firePower;
     }
 }
@@ -79,7 +89,7 @@ const alien = [alien1,alien2,alien3,alien4,alien5];
 //---------- Testing Uss ship properties ------------------------------ 
     console.log(`\n---------------------${uss1.name} characteristics-------`)
     // console.log(`Uss Ship Name : ${uss1.name}`);
-    console.log(`RANDOM ACCURACY is : ${uss1.ussShipAttackAccuracy()}`);
+    console.log(`ACCURACY is : ${uss1.ussShipAttackAccuracy()}`);
     console.log(`HULL is : ${uss1.hull}`);
     console.log("\n");
 
@@ -104,16 +114,16 @@ let count = 0;
 //------------------------- Testing alien properties -------------
     console.log(`---------------------${alien[count].name} characteristics-------`)
     // console.log(`Alien name : ${alien1.name}`);
-    console.log(`FIREPOWER is : ${alien[count].assignFirePower()}`);
+    console.log(`FIREPOWER is : ${alien[count].firePower}`);
     console.log(`HULL is : ${alien[count].hull}`);
-    console.log(`ACCURACY is : ${alien[count].alienAttackedAccuracy()}`);
+    console.log(`ACCURACY is : ${alien[count].accuracy}`);
     console.log('\n---------------------Demo---------------------------\n');
         
         do{
             //display uss ship attacking
             console.log(`\n${uss1.name} is attacking....`);
     
-            if(uss1.ussShipAttackAccuracy() === '0.7') {
+            if(uss1.ussShipAttackAccuracy() === uss1.accuracy) {
                 alien[count].hull -= 5;
             }else{
                 alien[count].hull -= 1;
@@ -122,7 +132,12 @@ let count = 0;
             console.log(`\n${alien[count].name} HULL after the attack is : ${alien[count].hull}\n`);
 
             // display the alien attack
-            
+            // if(alien[count].alienAttackedAccuracy === alien[count].accuracyMax) {
+            //     uss1.hull -= alien[count].assignFirePower();
+            // }else{
+            //     uss1.hull -= 1;
+            // }
+            // console.log(`\n${uss1.name} HULL after the attack is : ${uss1.hull}\n`);
     
         }while(alien1.hull > 0);
 
