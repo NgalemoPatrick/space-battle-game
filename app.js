@@ -12,7 +12,7 @@ class UssShip {
     // attributs declaration
     name = '';
     hull = 20;
-    accuracy = "0.7";
+    accuracy = 0.7;
 
 
     constructor(name) {
@@ -23,7 +23,7 @@ class UssShip {
     ussShipAttackAccuracy() {
         // determine the accuracy of the attack
         const accuracyStrenght = Math.random()*0.8;
-        return accuracyStrenght.toFixed(1);
+        return parseFloat(accuracyStrenght.toFixed(1));
     }
 
     isUssShipReteated() {
@@ -59,7 +59,7 @@ class AlienShip {
 
     alienAttackedAccuracy() {
         const alienOffense = Math.floor(Math.random()*(this.accuracyMax - this.accuracyMin)) + this.accuracyMin;
-        return alienOffense.toFixed(1);
+        return parseFloat(alienOffense.toFixed(1));
     }
 
     assignFirePower(){
@@ -132,14 +132,24 @@ let count = 0;
             console.log(`\n${alien[count].name} HULL after the attack is : ${alien[count].hull}\n`);
 
             // display the alien attack
-            // if(alien[count].alienAttackedAccuracy === alien[count].accuracyMax) {
-            //     uss1.hull -= alien[count].assignFirePower();
-            // }else{
-            //     uss1.hull -= 1;
-            // }
-            // console.log(`\n${uss1.name} HULL after the attack is : ${uss1.hull}\n`);
+            console.log(`\n${alien[count].name} is attacking....`);
+            if(alien[count].alienAttackedAccuracy() === alien[count].accuracy) {
+                uss1.hull -= alien[count].firePower;
+            }else{
+                uss1.hull -= 1;
+            }
+            console.log(`\n${uss1.name} HULL after the attack is : ${uss1.hull}\n`);
+
+            // check hull level
+            if(alien[count].hull === 0) {
+                console.log(`\n${alien[count].name} is defeated!!!!\n`);
+                break;
+            }else if(uss1.hull <= 0) {
+                console.log(`\n${uss1.name} is defeated!!!!\n`);
+                break;
+            }
     
-        }while(alien1.hull > 0);
+        }while(alien[count].hull > 0 || uss1.hull > 0);
 
             const input = prompt("Do you want to RETREAT? Enter yes/no : ");
             if(input === "yes"){
