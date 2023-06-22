@@ -1,0 +1,51 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    width: 100%;
+    font-size: 16px;
+}
+ .init-screen {
+    border: 3px solid #000;
+    height: 100vh;
+    margin: 25px;
+    background-color: blue;
+ }
+
+ .btn {
+    width: 300px;
+    height: 50px;
+    margin-left: 40%;
+    margin-top: 90vh;
+ }
+.main-container {
+    border: 3px solid #000;
+    display: flex;
+    justify-content: space-between;
+    gap: 2px;
+    height: 100vh;
+    margin: 25px;
+
+}
+
+.uss-ship {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    background-color: aqua;
+}
+
+.alien {
+    display: flex;
+    background-color: lightslategray;
+    width: 50%;
+}
+
+.uss {
+    justify-content: center;
+    justify-items: center;
+}
