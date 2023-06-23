@@ -1,42 +1,45 @@
-//This program simulate a space battle between an Uss-ship and space alien
-//
+//---------------------This program simulate a space battle between an Uss-ship and space alien----------------------
+//--------------------------------- JUNE-23-2023 --------------------------------------------------------------
+//-------------------------------------By FABRICE NGALEMO----------------------------------
 
-//Enable prompt()
+//---------------------------Import prompt-sync module -------------------------------
 
 const prompt = require('prompt-sync')();
 
-// Class Uss ship
+//------------------------------ Class Uss ship----------------------------------------
 
 
 class UssShip {
-    // attributs declaration
+    //----------------------------------- Attributs declaration-------------------
     name = '';
     hull = 20;
     accuracy = 0.7;
     firePower = 5;
 
-
+    //-----------------------------------------------Constructor-----------------------
     constructor(name) {
         this.name = name;
     }
 
-
+    //----------------------- Function to get the accuracy randomly-----------------
     ussShipAttackAccuracy() {
-        // determine the accuracy of the attack
+        //----------- determine the accuracy of the attack-----------------
         const accuracyStrenght = Math.random()*0.8;
+
+        //------------------------- Returning a float number
         return parseFloat(accuracyStrenght.toFixed(1));
     }
-
+    //------------------------ Not used for now --------------------------
     isUssShipReteated() {
         return false;
     }
 }
 
 
-// Alien class 
+//---------------------- Alien class-------------------------------- 
 
 class AlienShip {
-    // Attributs declaration
+    //------------------------ Attributs declaration---------------------------
     name = '';
     hull;
     firePower;
@@ -48,21 +51,27 @@ class AlienShip {
     accuracyMax = 0.8;
     accuracyMin = 0.6;
 
+    //----------------------- Construction-------------------------------
     constructor(name) {
         this.name = name;
-        // randomly set the hull of the alien ship
+
+        //-------------------- Randomly set the hull of the alien ship-------------
         this.hull = Math.floor(Math.random()*((this.hullMax +1) - this.hullMin)) + this.hullMin;
-        // randomly set the firepower of the alien ship
+
+        //-------------- Randomly set the firepower of the alien ship----------------
         this.firePower = Math.floor(Math.random()*((this.firePowerMax +1) - this.firePowerMin) )+ this.firePowerMin;
-        // randomly set the accuracy of the alien ship
+
+        //---------------- Randomly set the accuracy of the alien ship------------------------------------
         this.accuracy = Math.floor(Math.random()*((this.accuracyMax + 1) - this.accuracyMin)) + this.accuracyMin;
     }
 
+    //------------------------------- Function to get the alien accuracy----------------------------
     alienAttackedAccuracy() {
         const alienOffense = Math.floor(Math.random()*((this.accuracyMax + 1) - this.accuracyMin)) + this.accuracyMin;
         return parseFloat(alienOffense.toFixed(1));
     }
 
+    //------------------------- Function to get the alien firepower------------------------------------------ 
     assignFirePower(){
         const firePower = this.firePower = Math.floor(Math.random()*((this.firePowerMax +1) - this.firePowerMin) )+ this.firePowerMin;
         return firePower;
@@ -71,23 +80,25 @@ class AlienShip {
 
 
 
-//Get Uss ship name
+//-------------------------Get Uss ship name-----------------------
     console.log('\n');
     let shipN = prompt("Enter the ship name: ");
 
-// initialize uss and alien objects
+//---------------------------USS-SHIP Instance---------
     const uss1 = new UssShip(shipN);
-// alien object    
+
+
+//--------------------- ALIEN Instances---------------------------  
     const alien1 = new AlienShip("Alistar");
     const alien2 = new AlienShip("Cosmos");
     const alien3 = new AlienShip("Elazo");
     const alien4 = new AlienShip("Kylo");
     const alien5 = new AlienShip("Novak");
 
-// alien data set
+//------------------- Alien data set----------------------------
 const alien = [alien1,alien2,alien3,alien4,alien5];
 
-//---------- Testing Uss ship properties ------------------------------ 
+//--------------------- Uss ship properties ------------------------------ 
     console.log(`\n---------------------${uss1.name} characteristics-------`)
     // console.log(`Uss Ship Name : ${uss1.name}`);
     console.log(`FIREPOWER : ${uss1.firePower}`)
@@ -95,15 +106,8 @@ const alien = [alien1,alien2,alien3,alien4,alien5];
     console.log(`HULL is : ${uss1.hull}`);
     console.log("\n");
 
-// //------------------------- Testing alien properties -------------
-//     console.log(`---------------------${alien[0].name} characteristics-------`)
-//     // console.log(`Alien name : ${alien1.name}`);
-//     console.log(`FIREPOWER is : ${alien[0].assignFirePower()}`);
-//     console.log(`HULL is : ${alien[0].hull}`);
-//     console.log(`ACCURACY is : ${alien[0].alienAttackedAccuracy()}`);
 
-// functions
-// Main program
+//--------------------------- Main Program------------------
     
 // check alien hull damage
 // define the the retreat variable and set it to true
@@ -111,7 +115,7 @@ let retreat = true;
 let count = 0;
 
     while(retreat) {
-//------------------------- Testing alien properties -------------
+//------------------------- Alien properties -------------
     console.log(`---------------------${alien[count].name} characteristics-------`)
     // console.log(`Alien name : ${alien1.name}`);
     console.log(`FIREPOWER is : ${alien[count].firePower}`);
@@ -120,7 +124,7 @@ let count = 0;
     console.log('\n---------------------Demo---------------------------\n');
         
         do{
-            //--------------- uss ship attacking-------------------------------
+            //--------------- USS ship attacking-------------------------------
             console.log(`\n${uss1.name} is attacking....`);
     
             if(uss1.ussShipAttackAccuracy() === uss1.accuracy) {
@@ -137,9 +141,10 @@ let count = 0;
 
             //--------------- display Alien Ship  Hull-------------------------
             console.log(`\n${alien[count].name} HULL after the attack is : ${alien[count].hull}\n`);
+            console.log('--------------------------------------------------------------------------');
 
 
-            //-------------the Alien Ship attack--------------------------
+            //-------------The Alien Ship attack--------------------------
             console.log(`\n${alien[count].name} is attacking....`);
             if(alien[count].alienAttackedAccuracy() === alien[count].accuracy) {
                 uss1.hull -= alien[count].firePower;
@@ -148,16 +153,16 @@ let count = 0;
             }
 
 
-            //--------------------------check USS-Assembly Hull level-----------------
+            //--------------------------Check USS-Assembly Hull level-----------------
             if(uss1.hull <= 0) {
                 console.log(`\n${uss1.name} is defeated!!!!\n`);
-                console.log("\n GAME OVER THANK YOU FOR PLAYING\n")
+                // console.log("\n GAME OVER THANK YOU FOR PLAYING\n")
                 break;
             }
 
-            //--------------------- display USS-Assembly Hull level---------------------------------
+            //--------------------- Display USS-Assembly Hull level---------------------------------
             console.log(`\n${uss1.name} HULL after the attack is : ${uss1.hull}\n`);
-
+            console.log('--------------------------------------------------------------------------');
             
             //---------------------- Check is the condition is true---------------
         }while(alien[count].hull > 0 || uss1.hull > 0);
@@ -170,7 +175,7 @@ let count = 0;
                 count++;
             }
 
-            // check if I am out of the do while loop
+            // Check if I am out of the do while loop
             console.log(`\n\n${uss1.name} RETREATED!!!!!\n`); 
             
 
