@@ -1,4 +1,4 @@
-//This program simulate a space battle between and Uss ship and space alien
+//This program simulate a space battle between an Uss-ship and space alien
 //
 
 //Enable prompt()
@@ -13,6 +13,7 @@ class UssShip {
     name = '';
     hull = 20;
     accuracy = 0.7;
+    firePower = 5;
 
 
     constructor(name) {
@@ -50,20 +51,20 @@ class AlienShip {
     constructor(name) {
         this.name = name;
         // randomly set the hull of the alien ship
-        this.hull = Math.floor(Math.random()*(this.hullMax - this.hullMin)) + this.hullMin;
+        this.hull = Math.floor(Math.random()*((this.hullMax +1) - this.hullMin)) + this.hullMin;
         // randomly set the firepower of the alien ship
-        this.firePower = Math.floor(Math.random()*(this.firePowerMax - this.firePowerMin) )+ this.firePowerMin;
+        this.firePower = Math.floor(Math.random()*((this.firePowerMax +1) - this.firePowerMin) )+ this.firePowerMin;
         // randomly set the accuracy of the alien ship
-        this.accuracy = Math.floor(Math.random()*(this.accuracyMax - this.accuracyMin)) + this.accuracyMin;
+        this.accuracy = Math.floor(Math.random()*((this.accuracyMax + 1) - this.accuracyMin)) + this.accuracyMin;
     }
 
     alienAttackedAccuracy() {
-        const alienOffense = Math.floor(Math.random()*(this.accuracyMax - this.accuracyMin)) + this.accuracyMin;
+        const alienOffense = Math.floor(Math.random()*((this.accuracyMax + 1) - this.accuracyMin)) + this.accuracyMin;
         return parseFloat(alienOffense.toFixed(1));
     }
 
     assignFirePower(){
-        const firePower = Math.floor(Math.random()*this.firePowerMax) + this.firePowerMin;
+        const firePower = this.firePower = Math.floor(Math.random()*((this.firePowerMax +1) - this.firePowerMin) )+ this.firePowerMin;
         return firePower;
     }
 }
@@ -89,6 +90,7 @@ const alien = [alien1,alien2,alien3,alien4,alien5];
 //---------- Testing Uss ship properties ------------------------------ 
     console.log(`\n---------------------${uss1.name} characteristics-------`)
     // console.log(`Uss Ship Name : ${uss1.name}`);
+    console.log(`FIREPOWER : ${uss1.firePower}`)
     console.log(`ACCURACY is : ${uss1.ussShipAttackAccuracy()}`);
     console.log(`HULL is : ${uss1.hull}`);
     console.log("\n");
@@ -104,9 +106,7 @@ const alien = [alien1,alien2,alien3,alien4,alien5];
 // Main program
     
 // check alien hull damage
-// define the the retreat variable
-
-
+// define the the retreat variable and set it to true
 let retreat = true;
 let count = 0;
 
@@ -120,7 +120,7 @@ let count = 0;
     console.log('\n---------------------Demo---------------------------\n');
         
         do{
-            //display uss ship attacking
+            //--------------- uss ship attacking-------------------------------
             console.log(`\n${uss1.name} is attacking....`);
     
             if(uss1.ussShipAttackAccuracy() === uss1.accuracy) {
@@ -128,29 +128,40 @@ let count = 0;
             }else{
                 alien[count].hull -= 1;
             }
-    
+
+            //---------------- check the Alien Ship Hull level----------
+            if(alien[count].hull <= 0 ) {
+                console.log(`\n${alien[count].name} is defeated!!!!\n`);
+                break;
+            }
+
+            //--------------- display Alien Ship  Hull-------------------------
             console.log(`\n${alien[count].name} HULL after the attack is : ${alien[count].hull}\n`);
 
-            // display the alien attack
+
+            //-------------the Alien Ship attack--------------------------
             console.log(`\n${alien[count].name} is attacking....`);
             if(alien[count].alienAttackedAccuracy() === alien[count].accuracy) {
                 uss1.hull -= alien[count].firePower;
             }else{
                 uss1.hull -= 1;
             }
-            console.log(`\n${uss1.name} HULL after the attack is : ${uss1.hull}\n`);
 
-            // check hull level
-            if(alien[count].hull === 0) {
-                console.log(`\n${alien[count].name} is defeated!!!!\n`);
-                break;
-            }else if(uss1.hull <= 0) {
+
+            //--------------------------check USS-Assembly Hull level-----------------
+            if(uss1.hull <= 0) {
                 console.log(`\n${uss1.name} is defeated!!!!\n`);
                 break;
             }
-    
+
+            //--------------------- display USS-Assembly Hull level---------------------------------
+            console.log(`\n${uss1.name} HULL after the attack is : ${uss1.hull}\n`);
+
+            
+            //---------------------- Check is the condition is true---------------
         }while(alien[count].hull > 0 || uss1.hull > 0);
 
+            // Ask the User is He/She Want to Retreat or No
             const input = prompt("Do you want to RETREAT? Enter yes/no : ");
             if(input === "yes"){
                 retreat = false;
