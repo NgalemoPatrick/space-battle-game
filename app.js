@@ -151,6 +151,7 @@ let count = 0;
             //--------------------------check USS-Assembly Hull level-----------------
             if(uss1.hull <= 0) {
                 console.log(`\n${uss1.name} is defeated!!!!\n`);
+                console.log("\n GAME OVER THANK YOU FOR PLAYING\n")
                 break;
             }
 
@@ -168,10 +169,19 @@ let count = 0;
             }else{
                 count++;
             }
+
+            // check if I am out of the do while loop
+            console.log(`\n\n${uss1.name} RETREATED!!!!!\n`); 
+            
+
+            // Check if the array is not out of range
+            if(count === alien.length) {
+                console.log("\n GAME OVER THANK YOU FOR PLAYING\n")
+                break;
+            }
      };
 
-     // check if I am out of the do while loop
-     console.log(`\n\n${uss1.name} RETREATED!!!!!\n`);
+     
 
 
         
